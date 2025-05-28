@@ -1,0 +1,110 @@
+1.Check message integrity and confidentiality using SSL
+
+Algorithm:
+
+Step 1: Establish an SSL connection between the client and the server.
+Step 2: Generate a message digest of the message to be sent.
+Step3:Encrypt the message and the message digest using the SSL session key.
+Step4:Send the encrypted message and message digest to the server.
+Step5:The server decrypts the message and message digest using the SSL session key.
+Step6:The server generates a message digest of the decrypted message.
+Step7:The server compares the generated message digest to the received message digest.
+Step8:If the message digests match, the server knows that the message has not been tampered with and that it is from the correct sender.
+
+
+program
+Import ssl
+Import hashlib
+Def check_message_integrity_and_confidentiality(client_socket, server_socket, message):
+# Generate a message digest of the message.
+Message_digest = hashlib.sha256(message.encode()).hexdigest()
+# Encrypt the message and message digest using the SSL session key.
+Encrypted_message = client_socket.encrypt(message.encode())
+Encrypted_message_digest = client_socket.encrypt(message_digest.encode())
+# Send the encrypted message and message digest to the server.
+Client_socket.sendall(encrypted_message)
+Client_socket.sendall(encrypted_message_digest)
+# Receive the encrypted message and message digest from the server.
+Encrypted_message = server_socket.recvall()
+Encrypted_message_digest = server_socket.recvall()
+# Decrypt the message and message digest using the SSL session key.
+Decrypted_message = server_socket.decrypt(encrypted_message)
+Decrypted_message_digest = server_socket.decrypt(encrypted_message_digest)
+# Generate a message digest of the decrypted message.
+Generated_message_digest = hashlib.sha256(decrypted_message).hexdigest()
+# Compare the generated message digest to the received message digest.
+If generated_message_digest == decrypted_message_digest:
+Return True
+Else:
+Return False
+# Create an SSL client socket.
+Client_socket = ssl.create_default_context().wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
+Client_socket.connect(('localhost', 8080))
+# Create an SSL server socket.
+Server_socket = ssl.create_default_context().wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) To check message integrity and confidentiality using SSL.
+15
+Server_socket.bind(('localhost', 8080))
+Server_socket.listen(1)
+# Accept the incoming connection.
+Server_socket, _ = server_socket.accept()
+# Send a message to the server.
+Message = "This is a secret message."
+Client_socket.sendall(message.encode())
+# Check the message integrity and confidentiality.
+If check_message_integrity_and_confidentiality(client_socket, server_socket, message):
+Print("The message integrity and confidentiality are valid.")
+Else:
+Print("The message integrity or confidentiality is not valid.")
+# Close the sockets.
+Client_socket.close()
+Server_socket.close()
+
+Output
+The message integrity and confidentiality are valid.
+
+
+
+
+
+
+
+
+
+2.Implement Symmetric Key Algorithms.
+
+Algorithms
+
+Step1: Key Expansion: Generate a set of round keys from the original secret key using key expansion.
+Step2: Initial Round: Add the initial round key to the plaintext data.
+Step3: Rounds: Perform a series of substitution, permutation, and mixing operations (subbytes, shiftrows,
+mixcolumns) for a specified number of rounds, using round keys.
+Step4:Final Round: Apply a final round of operations without the mixcolumns step.
+Step5:Output:The ciphertext is produced as the final result.
+
+
+program
+
+From Crypto.Cipher import AES
+From Crypto.Random import get_random_bytes
+# Secret key
+Key = get_random_bytes(16) # 16 bytes (128 bits) for AES-128
+# Plaintext to be encrypted
+Plaintext = "Hello, symmetric encryption!"
+# Create an AES cipher object
+Cipher = AES.new(key, AES.MODE_ECB)
+# Encrypt the plaintext
+Ciphertext = cipher.encrypt(plaintext.encode())
+Print("Original Text:", plaintext)
+Print("Encrypted Text:", ciphertext)
+# To decrypt, you can use the same key and decrypt method:
+Decipher = AES.new(key, AES.MODE_ECB)
+Decrypted_text = decipher.decrypt(ciphertext).decode()
+Print("Decrypted Text:", decrypted_text)
+
+Output
+
+Original Text: Hello, symmetric encryption!
+Encrypted Text: b')\x87\xd8i\na\xc5\x84y5\x03\xd6\xa1g\x0e\\'
+Decrypted Text: Hello, symmetric encryption!
+
+
