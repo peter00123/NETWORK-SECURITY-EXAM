@@ -1,4 +1,65 @@
-1.Check message integrity and confidentiality using SSL
+.Implement Asymmetric Key algorithms and key exchange algorithms
+
+
+
+algorithms
+
+Diffie-Hellman key exchange:
+Step 1: Generate a random private key. This is done by generating a random integer between 1 and p - 1, where p is a prime number.
+Step 2: Calculate the public key. This is done by raising the generator g to the power of the private key and taking the remainder modulo p.
+Step 3: Exchange public keys with the other party.
+Step4: Calculate the shared secret key. This is done by raising the other party's public key to the power of the private key and taking the remainder modulo p.
+RSA encryption and decryption:
+Step 1: Generate a random RSA key pair. This is done by generating two large prime numbers, p and q, and calculating the public key (n, e) and private key (n, d) using the following formulas:
+N = p * q
+E = (p - 1)(q - 1) / d
+Step 2: Encrypt the message. To encrypt the message, raise it to the power of the public key e and take the remainder modulo n.
+Step 3: Decrypt the message. To decrypt the message, raise it to the power of the private key d and take the remainder modulo n
+
+
+program
+Import random
+Def diffie_hellman_key_exchange(p, g):
+A = random.randint(1, p - 1)
+A = g**a % p
+B = input("Enter the other party's public key: ")
+S = (int(B)**a) % p
+Return s
+Def rsa_encrypt message, public_key):
+N, e = public_key
+Ciphertext = message**e % n
+Return ciphertext
+Def rsa_decrypt(ciphertext, private_key):
+N, d = private_key
+Plaintext = ciphertext**d % n
+Return plaintext
+If _name_ == "_main_":
+# Diffie-Hellman key exchange
+P = 23
+G = 5
+S = diffie_hellman_key_exchange(p, g)
+Print("The shared secret key is:", s)
+# RSA encryption and decryption
+Message = "This is a secret message." Aim:
+To implement asymmetric key algorithms and key exchange algorithms in Python.
+9
+Public_key = (127, 17)
+Private_key = (127, 11)
+Ciphertext = rsa_encrypt(message, public_key)
+Plaintext = rsa_decrypt(ciphertext, private_key)
+Print("The ciphertext is:", ciphertext)
+Print("The plaintext is:", plaintext)
+
+Output
+The shared secret key is: 13
+The ciphertext is: 125
+The plaintext is: This is a secret message
+
+
+#################################################################################
+
+
+Check message integrity and confidentiality using SSL
 
 Algorithm:
 
@@ -65,46 +126,5 @@ The message integrity and confidentiality are valid.
 
 
 
-
-################################################################################################
-
-
-
-2.Implement Symmetric Key Algorithms.
-
-Algorithms
-
-Step1: Key Expansion: Generate a set of round keys from the original secret key using key expansion.
-Step2: Initial Round: Add the initial round key to the plaintext data.
-Step3: Rounds: Perform a series of substitution, permutation, and mixing operations (subbytes, shiftrows,
-mixcolumns) for a specified number of rounds, using round keys.
-Step4:Final Round: Apply a final round of operations without the mixcolumns step.
-Step5:Output:The ciphertext is produced as the final result.
-
-
-program
-
-From Crypto.Cipher import AES
-From Crypto.Random import get_random_bytes
-# Secret key
-Key = get_random_bytes(16) # 16 bytes (128 bits) for AES-128
-# Plaintext to be encrypted
-Plaintext = "Hello, symmetric encryption!"
-# Create an AES cipher object
-Cipher = AES.new(key, AES.MODE_ECB)
-# Encrypt the plaintext
-Ciphertext = cipher.encrypt(plaintext.encode())
-Print("Original Text:", plaintext)
-Print("Encrypted Text:", ciphertext)
-# To decrypt, you can use the same key and decrypt method:
-Decipher = AES.new(key, AES.MODE_ECB)
-Decrypted_text = decipher.decrypt(ciphertext).decode()
-Print("Decrypted Text:", decrypted_text)
-
-Output
-
-Original Text: Hello, symmetric encryption!
-Encrypted Text: b')\x87\xd8i\na\xc5\x84y5\x03\xd6\xa1g\x0e\\'
-Decrypted Text: Hello, symmetric encryption!
 
 

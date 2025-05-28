@@ -1,0 +1,57 @@
+.Implement Asymmetric Key algorithms and key exchange algorithms
+
+
+
+algorithms
+
+Diffie-Hellman key exchange:
+Step 1: Generate a random private key. This is done by generating a random integer between 1 and p - 1, where p is a prime number.
+Step 2: Calculate the public key. This is done by raising the generator g to the power of the private key and taking the remainder modulo p.
+Step 3: Exchange public keys with the other party.
+Step4: Calculate the shared secret key. This is done by raising the other party's public key to the power of the private key and taking the remainder modulo p.
+RSA encryption and decryption:
+Step 1: Generate a random RSA key pair. This is done by generating two large prime numbers, p and q, and calculating the public key (n, e) and private key (n, d) using the following formulas:
+N = p * q
+E = (p - 1)(q - 1) / d
+Step 2: Encrypt the message. To encrypt the message, raise it to the power of the public key e and take the remainder modulo n.
+Step 3: Decrypt the message. To decrypt the message, raise it to the power of the private key d and take the remainder modulo n
+
+
+program
+Import random
+Def diffie_hellman_key_exchange(p, g):
+A = random.randint(1, p - 1)
+A = g**a % p
+B = input("Enter the other party's public key: ")
+S = (int(B)**a) % p
+Return s
+Def rsa_encrypt message, public_key):
+N, e = public_key
+Ciphertext = message**e % n
+Return ciphertext
+Def rsa_decrypt(ciphertext, private_key):
+N, d = private_key
+Plaintext = ciphertext**d % n
+Return plaintext
+If _name_ == "_main_":
+# Diffie-Hellman key exchange
+P = 23
+G = 5
+S = diffie_hellman_key_exchange(p, g)
+Print("The shared secret key is:", s)
+# RSA encryption and decryption
+Message = "This is a secret message." Aim:
+To implement asymmetric key algorithms and key exchange algorithms in Python.
+9
+Public_key = (127, 17)
+Private_key = (127, 11)
+Ciphertext = rsa_encrypt(message, public_key)
+Plaintext = rsa_decrypt(ciphertext, private_key)
+Print("The ciphertext is:", ciphertext)
+Print("The plaintext is:", plaintext)
+
+Output
+The shared secret key is: 13
+The ciphertext is: 125
+The plaintext is: This is a secret message
+
